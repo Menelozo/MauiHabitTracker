@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="HabitTracker.Pages.TodoItemPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:HabitTracker.Models"
+    Title="{Binding Name}"
+    x:DataType="models:TodoItem"
+    BackgroundColor="#E2CEF0"
+    Shell.NavBarIsVisible="False">
+    <ScrollView VerticalOptions="End">
+        <VerticalStackLayout Padding="20" Spacing="10">
+            <Label Text="Name" />
+            <Entry Text="{Binding Name}" />
+
+            <Grid ColumnDefinitions="auto,*">
+                <Label Text="Days" />
+                <Label
+                    x:Name="SelectAllDays"
+                    Grid.Column="1"
+                    HorizontalTextAlignment="End"
+                    Text="Select All Days"
+                    TextColor="DarkViolet"
+                    VerticalTextAlignment="End">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="SelectAllDays_Tapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Border
+                    Margin="3"
+                    BackgroundColor="{Binding DaysOfWeek[Monday], Converter={StaticResource BoolToColorConverter}}"
+                    HeightRequest="45"
+                    Stroke="Black"
+                    WidthRequest="45">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer CommandParameter="Monday" Tapped="OnDayTapped" />
+                    </Border.GestureRecognizers>
+                    <Label
+                        Padding="3"
+                        FontSize="18"
+                        HorizontalOptions="Center"
+                        Text="Mo"
+                        VerticalOptions="Center" />
+                </Border>
+                <Border
+                    Margin="3"
+                    BackgroundColor="{Binding DaysOfWeek[Tuesday], Converter={StaticResource BoolToColorConverter}}"
+                    HeightRequest="45"
+                    Stroke="Black"
+                    WidthRequest="45">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer CommandParameter="Tuesday" Tapped="OnDayTapped" />
+                    </Border.GestureRecognizers>
+                    <Label
+                        Padding="3"
+                        FontSize="18"
+                        HorizontalOptions="Center"
+                        Text="Tu"
+                        VerticalOptions="Center" />
+                </Border>
+                <Border
+                    Margin="3"
+                    BackgroundColor="{Binding DaysOfWeek[Wednesday], Converter={StaticResource BoolToColorConverter}}"
+                    HeightRequest="45"
+                    Stroke="Black"
+                    WidthRequest="45">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer CommandParameter="Wednesday" Tapped="OnDayTapped" />
+                    </Border.GestureRecognizers>
+                    <Label
+                        Padding="3"
+                        FontSize="18"
+                        HorizontalOptions="Center"
+                        Text="We"
+                        VerticalOptions="Center" />
+                </Border>
+                <Border
+                    Margin="3"
+                    BackgroundColor="{Binding DaysOfWeek[Thursday], Converter={StaticResource BoolToColorConverter}}"
+                    HeightRequest="45"
+                    Stroke="Black"
+                    WidthRequest="45">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer CommandParameter="Thursday" Tapped="OnDayTapped" />
+                    </Border.GestureRecognizers>
+                    <Label
+                        Padding="3"
+                        FontSize="18"
+                        HorizontalOptions="Center"
+                        Text="Th"
+                        VerticalOptions="Center" />
+                </Border>
+                <Border
+                    Margin="3"
+                    BackgroundColor="{Binding DaysOfWeek[Friday], Converter={StaticResource BoolToColorConverter}}"
+                    HeightRequest="45"
+                    Stroke="Black"
+                    WidthRequest="45">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer CommandParameter="Friday" Tapped="OnDayTapped" />
+                    </Border.GestureRecognizers>
+                    <Label
+                        Padding="3"
+                        FontSize="18"
+                        HorizontalOptions="Center"
+                        Text="Fr"
+                        VerticalOptions="Center" />
+                </Border>
+                <Border
+                    Margin="3"
+                    BackgroundColor="{Binding DaysOfWeek[Saturday], Converter={StaticResource BoolToColorConverter}}"
+                    HeightRequest="45"
+                    Stroke="Black"
+                    WidthRequest="45">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer CommandParameter="Saturday" Tapped="OnDayTapped" />
+                    </Border.GestureRecognizers>
+                    <Label
+                        Padding="3"
+                        FontSize="18"
+                        HorizontalOptions="Center"
+                        Text="Sa"
+                        VerticalOptions="Center" />
+                </Border>
+                <Border
+                    Margin="3"
+                    BackgroundColor="{Binding DaysOfWeek[Sunday], Converter={StaticResource BoolToColorConverter}}"
+                    HeightRequest="45"
+                    Stroke="Black"
+                    WidthRequest="45">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer CommandParameter="Sunday" Tapped="OnDayTapped" />
+                    </Border.GestureRecognizers>
+                    <Label
+                        Padding="3"
+                        FontSize="18"
+                        HorizontalOptions="Center"
+                        Text="Su"
+                        VerticalOptions="Center" />
+                </Border>
+            </HorizontalStackLayout>
+
+            <FlexLayout>
+                <Button
+                    Margin="5"
+                    BackgroundColor="FloralWhite"
+                    BorderColor="Black"
+                    BorderWidth="1"
+                    Clicked="OnCancelClicked"
+                    FlexLayout.Basis="50%"
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    HeightRequest="50"
+                    Text="Cancel"
+                    TextColor="Black" />
+                <Button
+                    Margin="5"
+                    BackgroundColor="FloralWhite"
+                    BorderColor="Black"
+                    BorderWidth="1"
+                    Clicked="OnSaveClicked"
+                    FlexLayout.Basis="50%"
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    HeightRequest="50"
+                    Text="Save"
+                    TextColor="Black" />
+            </FlexLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

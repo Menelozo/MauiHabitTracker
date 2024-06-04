@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="HabitTracker.Pages.HomePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:HabitTracker.Models"
+    Title="Plan for Today"
+    BackgroundColor="#E2CEF0"
+    Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="60,*">
+        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+            <DatePicker
+                x:Name="datePicker"
+                Date="{Binding SelectedDate}"
+                Format="D"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand" />
+
+            <Button
+                Margin="5"
+                BackgroundColor="FloralWhite"
+                BorderColor="Black"
+                BorderWidth="1"
+                Clicked="ResetButton_Clicked"
+                FontAttributes="Bold"
+                FontSize="15"
+                HorizontalOptions="End"
+                Text="Reset"
+                TextColor="Black"
+                VerticalOptions="CenterAndExpand" />
+        </HorizontalStackLayout>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="7*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="3*" />
+            </Grid.RowDefinitions>
+            <Label
+                x:Name="label1"
+                Margin="5"
+                Padding="10,0,0,0"
+                FontSize="25"
+                HorizontalOptions="StartAndExpand"
+                Text="Habits for Today"
+                TextColor="DarkViolet" />
+            <Label
+                x:Name="dayCompleted"
+                Grid.Row="1"
+                FontSize="25"
+                HorizontalTextAlignment="Center"
+                IsVisible="False"
+                Text="Day Completed!"
+                TextColor="Black"
+                VerticalTextAlignment="Center" />
+            <CollectionView
+                x:Name="collectionView1"
+                Grid.Row="1"
+                ItemsSource="{Binding Items}"
+                SelectionChanged="CollectionView1_SelectionChanged"
+                SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:HabitItem">
+                        <Frame
+                            Margin="4"
+                            Padding="0,0,0,0"
+                            BackgroundColor="MediumPurple"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HeightRequest="50">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.FrameTappedCommand}" CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
+
+                            <Label
+                                Padding="30,0,0,0"
+                                FontSize="30"
+                                HorizontalTextAlignment="Start"
+                                Text="{Binding Name}"
+                                VerticalTextAlignment="Center" />
+
+                        </Frame>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label
+                x:Name="label2"
+                Grid.Row="2"
+                Margin="5"
+                Padding="10,0,0,0"
+                FontSize="18"
+                HorizontalOptions="StartAndExpand"
+                Text="Finished Habits"
+                TextColor="DarkViolet" />
+            <CollectionView
+                x:Name="collectionView2"
+                Grid.Row="3"
+                ItemsSource="{Binding ItemsDone}"
+                SelectionChanged="CollectionView2_SelectionChanged"
+                SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate x:DataType="models:HabitItem">
+                        <Frame
+                            Margin="2"
+                            Padding="0,0,0,0"
+                            BackgroundColor="FloralWhite"
+                            BorderColor="black"
+                            CornerRadius="10"
+                            HeightRequest="40">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.FrameTappedCommand}" CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
+                            <Label
+                                Padding="30,0,0,0"
+                                FontSize="20"
+                                HorizontalTextAlignment="Start"
+                                Text="{Binding Name, StringFormat='{0} ✔️'}"
+                                VerticalTextAlignment="Center" />
+                        </Frame>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="HabitTracker.Pages.ProfilePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:HabitTracker.Converters"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    xmlns:models="clr-namespace:HabitTracker.Models"
+    Title="ProfilePage"
+    ios:Page.UseSafeArea="True"
+    BackgroundColor="#E2CEF0"
+    Shell.NavBarIsVisible="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:TrueRegisteredHabitsCountConverter x:Key="TrueRegisteredHabitsCountConverter" />
+            <converters:DateOnlyConverter x:Key="DateOnlyConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Start">
+        <Label
+            Padding="0,25,0,0"
+            HorizontalTextAlignment="Center"
+            Text="Reset Account Settings"
+            TextColor="PaleVioletRed"
+            VerticalTextAlignment="Start">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="ResetAccountSettings_Tapped" />
+            </Label.GestureRecognizers>
+        </Label>
+        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+            <Label
+                x:Name="allTodosCount"
+                Margin="5"
+                FontSize="20"
+                Text=""
+                TextColor="MediumPurple" />
+            <Label
+                x:Name="allHabitsCount"
+                Margin="5"
+                FontSize="20"
+                Text=""
+                TextColor="MediumPurple" />
+            <Label
+                x:Name="allDaysHistoryCount"
+                Margin="5"
+                FontSize="20"
+                Text=""
+                TextColor="MediumPurple" />
+        </HorizontalStackLayout>
+        <Frame
+            Margin="5"
+            Padding="5"
+            BackgroundColor="MediumPurple"
+            BorderColor="Black"
+            CornerRadius="10">
+            <Grid RowDefinitions="auto,auto">
+                <Label
+                    x:Name="accountCreatedOn"
+                    Margin="10"
+                    FontSize="25"
+                    HorizontalOptions="Start"
+                    Text="Account Created On: "
+                    TextColor="Black"
+                    VerticalOptions="Start" />
+                <CollectionView
+                    Grid.Row="1"
+                    Margin="1"
+                    HeightRequest="500"
+                    ItemsSource="{Binding DaysHistory}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:DayHistory">
+                            <HorizontalStackLayout>
+                                <Label
+                                    Grid.Column="0"
+                                    Padding="25,0,0,5"
+                                    FontSize="20"
+                                    HorizontalTextAlignment="Start"
+                                    Text="{Binding Day, Converter={StaticResource DateOnlyConverter}}"
+                                    VerticalTextAlignment="Center" />
+                                <Label
+                                    Grid.Column="0"
+                                    Padding="0,0,0,5"
+                                    FontSize="20"
+                                    HorizontalTextAlignment="Start"
+                                    Text=": "
+                                    VerticalTextAlignment="Center" />
+                                <Label
+                                    Grid.Column="0"
+                                    Padding="0,0,0,5"
+                                    FontSize="20"
+                                    HorizontalTextAlignment="Start"
+                                    Text="{Binding RegisteredHabits, Converter={StaticResource TrueRegisteredHabitsCountConverter}}"
+                                    VerticalTextAlignment="Center" />
+                                <Label
+                                    Grid.Column="0"
+                                    Padding="0,0,0,5"
+                                    FontSize="20"
+                                    HorizontalTextAlignment="Start"
+                                    Text="/"
+                                    VerticalTextAlignment="Center" />
+                                <Label
+                                    Grid.Column="0"
+                                    Padding="0,0,0,5"
+                                    FontSize="20"
+                                    HorizontalTextAlignment="Start"
+                                    Text="{Binding RegisteredHabits.Count}"
+                                    VerticalTextAlignment="Center" />
+                                <Label
+                                    Grid.Column="0"
+                                    Padding="0,0,0,5"
+                                    FontSize="20"
+                                    HorizontalTextAlignment="Start"
+                                    Text=" Complated"
+                                    VerticalTextAlignment="Center" />
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </Frame>
+        <BoxView BackgroundColor="Transparent" HeightRequest="20" />
+    </VerticalStackLayout>
+</ContentPage>

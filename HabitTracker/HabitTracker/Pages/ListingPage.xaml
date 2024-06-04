@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="HabitTracker.Pages.ListingPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    xmlns:models="clr-namespace:HabitTracker.Models"
+    Title="All Habits"
+    ios:Page.UseSafeArea="True"
+    BackgroundColor="#E2CEF0"
+    Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="*,auto">
+        <ScrollView VerticalOptions="EndAndExpand">
+            <CollectionView
+                x:Name="collectionView"
+                Margin="1"
+                ItemsSource="{Binding Items}"
+                SelectionChanged="CollectionView_SelectionChanged"
+                SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:TodoItem">
+                        <Frame
+                            Margin="5"
+                            Padding="5"
+                            BackgroundColor="MediumPurple"
+                            BorderColor="Black"
+                            CornerRadius="10"
+                            HeightRequest="50">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.FrameTappedCommand}" CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
+                            <Grid ColumnDefinitions="auto, *">
+                                <Label
+                                    Grid.Column="0"
+                                    FontSize="25"
+                                    HorizontalTextAlignment="Start"
+                                    Text="{Binding Name}"
+                                    VerticalTextAlignment="Center" />
+                                <Button
+                                    Grid.Column="1"
+                                    BackgroundColor="PaleVioletRed"
+                                    BorderColor="Black"
+                                    BorderWidth="1"
+                                    Clicked="Delete_Clicked"
+                                    HorizontalOptions="EndAndExpand"
+                                    ImageSource="delete.png"
+                                    VerticalOptions="Center" />
+                            </Grid>
+                        </Frame>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+
+
+
+        <Grid
+            Grid.Row="1"
+            ColumnDefinitions="*,*"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="EndAndExpand">
+            <Label
+                Margin="20"
+                HorizontalTextAlignment="Start"
+                Text="Delete All Habits"
+                TextColor="PaleVioletRed"
+                VerticalTextAlignment="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="DeleteAllTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+
+            <Button
+                Grid.Column="1"
+                Margin="20"
+                BackgroundColor="FloralWhite"
+                BorderColor="Black"
+                BorderWidth="1"
+                Clicked="OnItemAdded"
+                CornerRadius="50"
+                FontAttributes="Bold"
+                FontSize="15"
+                HorizontalOptions="End"
+                ImageSource="plus.png" />
+        </Grid>
+
+    </Grid>
+</ContentPage> 
